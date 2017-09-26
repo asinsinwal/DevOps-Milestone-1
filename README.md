@@ -43,7 +43,7 @@ iTrust requires credentials to even clone the repository. We had to handle this 
 ## Contribution:
 
 
-| Team Member                                                                        | Performed By           | 
+| Tasks                                                                              | Performed By           | 
 | -----------------------------------------------------------------------------------|:----------------------:| 
 | 1. Ansible scripts for Checkbox.io deployment                                      | Sneha Kulkarni         | 
 | 2. Ansible scripts for iTrust deployment                                           | Animesh Sinsinwal      |  
