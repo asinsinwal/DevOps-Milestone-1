@@ -13,8 +13,8 @@
 
 ## Ansible Scripts:
 
-1. The ansible script for deploying Checkbox.io on Ubuntu 14.04 server is contained in the file [trusty.yml]()
-2. The ansible script for deploying iTrust is contained in the file [test.yml]()
+1. The ansible script for deploying Checkbox.io on Ubuntu 14.04 server is contained in the file [provision_checkbox.yml]()
+2. The ansible script for deploying iTrust is contained in the file [provision_iTrust.yml]()
 
 ## Screencast:
 
