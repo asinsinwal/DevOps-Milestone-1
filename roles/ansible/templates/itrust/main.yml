@@ -6,7 +6,7 @@
     - name: Provision new virtual machine
       shell: vagrant up
       args:
-        chdir: /home/ubuntu/check_vagrant
+        chdir: /home/ubuntu/itrust_vagrant
       become: yes
 
 - hosts: all
