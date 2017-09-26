@@ -29,19 +29,21 @@
 # Installing Packages
 - name: Install Java jdk
   apt: pkg=openjdk-8-jdk state=present
-  become: yes
+
+# - name: Install maven
+#   become: yes
+#   package: name=maven state=latest
 
 - name: Install maven
-  become: yes
-  package: name=maven state=latest
+  apt: pkg=maven state=present
 
 - name: Installing mysql and other dependencies
-  become: yes
   apt: name={{ item }} state=present
   with_items:
     - mysql-server
     - libmysql-java
     - mysql-workbench
+  register: mysql_installation
 
 - name: Enable MySQL with table names - lowercase
   become: yes
@@ -57,36 +59,41 @@
   service:
     name: mysql
     state: restarted
+  when: mysql_installation.changed
 
 - name: Maven package
-  become: yes
   script: maven.sh
 
 - name: Download Tomcat
   get_url: url=http://archive.apache.org/dist/tomcat/tomcat-9/v9.0.0.M26/bin/apache-tomcat-9.0.0.M26.tar.gz dest=/opt/
+  register: tomcat_installation
 
 - name: make tomcat9 dir
   file:
     path: /opt/tomcat9
     state: directory
     mode: 0755
+  when: tomcat_installation.changed
 
 - name: Unarchive Tomcat
   unarchive: src=/opt/apache-tomcat-9.0.0.M26.tar.gz dest=/opt/tomcat9 remote_src=True
   
 - name: Configure tomcat environment variables
   script: tomcat-config.sh
-
-# - name: Echoing
-#   shell: echo $JAVA_HOME >> /home/ubuntu/abc.txt
+  when: tomcat_installation.changed
   
 - name: Configure Tomcat users
   template: src=tomcat-users.xml dest=/opt/tomcat9/apache-tomcat-9.0.0.M26/conf/
+  when: tomcat_installation.changed
 
-# - name: Start Tomcat Server
-#   command: chdir=/opt/tomcat9/apache-tomcat-9.0.0.M26/ ./bin/startup.sh
-#   become: yes
+  # Copy a war file to iTrust
+- copy:
+    src: /home/vagrant/iTrust-v23/iTrust/target/iTrust-23.0.0.war
+    dest: /opt/tomcat9/apache-tomcat-9.0.0.M26/webapps/iTrust.war
+    remote_src: yes
+  when: tomcat_installation.changed
 
 - name: Run a command as nobody
-  command: chdir=/opt/tomcat9/apache-tomcat-9.0.0.M26/ ./bin/startup.sh
+  command: nohup /opt/tomcat9/apache-tomcat-9.0.0.M26/bin/startup.sh
   become: true
+  when: tomcat_installation.changed
