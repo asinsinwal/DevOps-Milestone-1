@@ -1,0 +1,69 @@
+
+- name: Install ansible
+  apt:
+    pkg: ansible
+    state: present
+  become: yes
+
+- name: Disable host_key_checking
+  lineinfile:
+    path: '/etc/ansible/ansible.cfg'
+    regexp: '^var\ \$username\ ='
+    line: "host_key_checking = False"
+    state: present
+
+- name: Create checkbox_vagrant directory
+  file:
+    path: /home/{{ansible_user}}/check_vagrant
+    state: directory
+    mode: 0755
+
+- name: Copy checkbox postbuild ansible script
+  copy:
+    src: templates/checkbox.yml.cnf
+    dest: /home/{{ansible_user}}/check_vagrant/checkbox.yml
+    owner: "{{ansible_user}}"
+    mode: "u=rw,g=r,o=r"
+
+- name: Copy mongodb service template
+  template:
+    src: templates/mongodb_service.cnf
+    dest: /home/{{ansible_user}}/check_vagrant/mongodb_service.cnf
+    owner: "{{ansible_user}}"
+    mode: "u=rw,g=r,o=r"
+
+- name: Copy nginx service template
+  template:
+    src: templates/nginx_site.cnf
+    dest: /home/{{ansible_user}}/check_vagrant/nginx_site.cnf
+    owner: "{{ansible_user}}"
+    mode: "u=rw,g=r,o=r"
+
+- name: Copy checkbox inventory file
+  template:
+    src: templates/checkbox_inventory
+    dest: /home/{{ansible_user}}/check_vagrant/checkbox_inventory
+    owner: "{{ansible_user}}"
+    mode: "u=rw,g=r,o=r"
+
+- name: Create itrust_vagrant directory
+  file:
+    path: /home/{{ansible_user}}/itrust_vagrant
+    state: directory
+    mode: 0755
+
+
+#- name: Copy itrust postbuild ansible script
+#  template:
+#    src: templates/itrust.yml
+#    dest: /home/{{ansible_user}}/itrust_vagrant/itrust.yml
+#    owner: "{{ansible_user}}"
+#    mode: "u=rw,g=r,o=r"
+
+
+- name: Copy itrust inventory file
+  template:
+    src: templates/itrust_inventory
+    dest: /home/{{ansible_user}}/itrust_inventory/itrust_inventory
+    owner: "{{ansible_user}}"
+    mode: "u=rw,g=r,o=r"
