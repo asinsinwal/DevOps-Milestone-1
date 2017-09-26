@@ -44,5 +44,5 @@
   tasks:
 
   - name: Trigger Build Jobs
-    shell: "java -jar {{ jenkins_jar_location }} -s http://{{ jenkins_hostname }}:{{ jenkins_http_port }}  build {item.name}"
+    shell: "java -jar {{ jenkins_jar_location }} -s http://{{ jenkins_hostname }}:{{ jenkins_http_port }}  build {{item.name}}"
     with_items: "{{jenkins_build_jobs}}"
