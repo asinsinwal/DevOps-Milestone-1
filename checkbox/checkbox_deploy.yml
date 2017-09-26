@@ -156,7 +156,7 @@
     - name: Replacing the site-enable config
       template:
         force: yes
-        src: "/home/vagrant/default.conf.j2"
+        src: "/home/vagrant/default.j2"
         dest: "/etc/nginx/sites-enabled/default"
         mode: 0700
 
