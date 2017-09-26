@@ -87,9 +87,16 @@
     src: "{{jenkins_credential_data.jinja_name}}"
     dest: "{{ jenkins_home }}/{{jenkins_credential_data.xml_name}}"
 
+- name: Checking Credentials In Jenkins
+  become: true
+  shell: "java -jar {{ jenkins_jar_location }} -s http://{{ jenkins_hostname }}:{{ jenkins_http_port }} get-credentials-as-xml system::system::jenkins _ credential_id"
+  register: git_creds
+  ignore_errors: yes
+  changed_when: "git_creds.stdout.find('credential_id') == -1"
+
 - name: Create Credentials
   shell: "cat {{ jenkins_home }}/{{jenkins_credential_data.xml_name}} | java -jar {{ jenkins_jar_location }} -s http://{{ jenkins_hostname }}:{{ jenkins_http_port }}  create-credentials-by-xml system::system::jenkins _"
-
+  when: "git_creds.stdout.find('credential_id') == -1"
 
 - name: Install python-pip
   apt: name=python-pip update_cache=yes state=installed
