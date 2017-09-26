@@ -28,9 +28,9 @@ iTrust requires credentials to even clone the repository. We had to handle this 
 
 * iTrust : 
 
-** iTrust has too many dependencies. This required significant amount of research and we invested time in setting up the dependencies appropriately.
-
-** The iTrust documentation has been written in such a way that it is from an end user's perspective, rather than of being of much help to a developer. Thus, we had to find command line modules for all the functionalities.
+  * iTrust has too many dependencies. This required significant amount of research and we invested time in setting up the   dependencies appropriately.
+  
+  * The iTrust documentation has been written in such a way that it is from an end user's perspective, rather than of being of much help to a developer. Thus, we had to find command line modules for all the functionalities.
 
 * There is not enough documentation for hosting a virtual machine inside another virtual machine. This was an obstacle too.
 
