@@ -1,0 +1,92 @@
+---
+
+# Gather variables
+- include_vars: "{{ item }}"
+  with_first_found:
+    - "../vars/{{ ansible_distribution }}.yml"
+    - "../vars/{{ ansible_os_family }}.yml"
+    - "../vars/default.yml"
+- include_vars: "../vars/common.yml"
+- include_vars: "../vars/Debian.yml"
+- include_vars: "../vars/RedHat.yml"
+
+- name: Install git
+  apt: pkg=git state=present
+  become: yes
+
+
+# - name: Cloning Git Repo
+#   git: repo=https://{{ github_username }}:{{ github_password }}@github.ncsu.edu/assinsin/iTrust-v23.git dest=/root/iTrust-v23
+
+- name: Adding openjdk 8 to sources
+  apt_repository:
+    repo: ppa:openjdk-r/ppa
+    state: present
+
+- name: Run the equivalent of "apt-get update" as a separate step
+  apt: update_cache=yes
+
+# Installing Packages
+- name: Install Java jdk
+  apt: pkg=openjdk-8-jdk state=present
+  become: yes
+
+- name: Install maven
+  become: yes
+  package: name=maven state=latest
+
+- name: Installing mysql and other dependencies
+  become: yes
+  apt: name={{ item }} state=present
+  with_items:
+    - mysql-server
+    - libmysql-java
+    - mysql-workbench
+
+- name: Enable MySQL with table names - lowercase
+  become: yes
+  ini_file: >
+    dest=/etc/mysql/my.cnf
+    section=mysqld
+    option=lower_case_table_names
+    value=1
+    backup=yes
+
+- name: Restarting mysql service
+  become: yes
+  service:
+    name: mysql
+    state: restarted
+
+- name: Maven package
+  become: yes
+  script: maven.sh
+
+- name: Download Tomcat
+  get_url: url=http://archive.apache.org/dist/tomcat/tomcat-9/v9.0.0.M26/bin/apache-tomcat-9.0.0.M26.tar.gz dest=/opt/
+
+- name: make tomcat9 dir
+  file:
+    path: /opt/tomcat9
+    state: directory
+    mode: 0755
+
+- name: Unarchive Tomcat
+  unarchive: src=/opt/apache-tomcat-9.0.0.M26.tar.gz dest=/opt/tomcat9 remote_src=True
+  
+- name: Configure tomcat environment variables
+  script: tomcat-config.sh
+
+# - name: Echoing
+#   shell: echo $JAVA_HOME >> /home/ubuntu/abc.txt
+  
+- name: Configure Tomcat users
+  template: src=tomcat-users.xml dest=/opt/tomcat9/apache-tomcat-9.0.0.M26/conf/
+
+# - name: Start Tomcat Server
+#   command: chdir=/opt/tomcat9/apache-tomcat-9.0.0.M26/ ./bin/startup.sh
+#   become: yes
+
+- name: Run a command as nobody
+  command: chdir=/opt/tomcat9/apache-tomcat-9.0.0.M26/ ./bin/startup.sh
+  become: true
