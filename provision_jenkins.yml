@@ -9,6 +9,10 @@
   - name: git_password
     prompt: Please enter your github password
     private: yes
+    
+  - name: vm_password
+    prompt: Please enter your VM's password
+    private: yes
 
   gather_facts: no
   pre_tasks:
