@@ -6,7 +6,7 @@
 
   handlers:
   - name: start mongodb service
-    service: name=mongod state=started
+    service: name=mongodb state=started
 
   vars:
     git_repo: https://github.com/kulkarnisneha/checkbox.io.git
@@ -57,28 +57,25 @@
     - name: Add an apt key by id from a keyserver
       apt_key:
         keyserver: hkp://keyserver.ubuntu.com:80
-        id: 0C49F3730359A14518585931BC711F9BA15703C6
+        id: 7F0CEB10
 
 
     - name: Add mongodb repository
       #become: yes
       apt_repository:
-        repo: deb [ arch=amd64 ] http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.4 multiverse
+        repo: deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse
+
+    - name: force all notified handlers to run at this point, not waiting for normal sync points
+      meta: flush_handlers
 
     - name: Install mongodb
       #become: yes
       apt:
-        pkg: mongodb-org
+        pkg: mongodb
         state: latest
         update_cache: yes
       notify:
       - start mongodb service
-
-
-    - name: start mongodb service
-      become: true
-      shell: systemctl start mongodb
-
 
     - name: Update and upgrade apt packages
       become: true
@@ -126,9 +123,6 @@
       become: yes
       npm:
         path: "/home/ubuntu/checkbox.io/server-side/site"
-
-    - name: Installing Dotenv
-      shell: "sudo npm install dotenv"
 
     - name: Installing forever.js
       npm:
