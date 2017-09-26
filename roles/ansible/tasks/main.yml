@@ -53,18 +53,24 @@
     state: directory
     mode: 0755
 
-
-#- name: Copy itrust postbuild ansible script
+# - name: Copy itrust postbuild ansible script
 #  template:
 #    src: templates/itrust.yml
 #    dest: /home/{{ansible_user}}/itrust_vagrant/itrust.yml
 #    owner: "{{ansible_user}}"
 #    mode: "u=rw,g=r,o=r"
 
+- name: Copy itrust postbuild ansible script
+  copy:
+    src: templates/itrust/
+    dest: /home/{{ansible_user}}/itrust_vagrant/
+    owner: "{{ansible_user}}"
+    mode: "u=rw,g=r,o=r"
+
 
 - name: Copy itrust inventory file
   template:
     src: templates/itrust_inventory.j2
-    dest: /home/{{ansible_user}}/itrust_inventory
+    dest: /home/{{ansible_user}}/itrust_vagrant/itrust_inventory
     owner: "{{ansible_user}}"
     mode: "u=rw,g=r,o=r"
