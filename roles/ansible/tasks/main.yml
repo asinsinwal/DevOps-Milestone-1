@@ -41,7 +41,7 @@
 
 - name: Copy checkbox inventory file
   template:
-    src: templates/checkbox_inventory
+    src: templates/checkbox_inventory.j2
     dest: /home/{{ansible_user}}/check_vagrant/checkbox_inventory
     owner: "{{ansible_user}}"
     mode: "u=rw,g=r,o=r"
