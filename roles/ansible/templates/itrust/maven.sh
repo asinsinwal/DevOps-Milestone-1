@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/vagrant/iTrust-v23/iTrust
+cd /vagrant/iTrust
 
 mvn package
 # mvn clean install
