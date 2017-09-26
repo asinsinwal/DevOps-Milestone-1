@@ -1,6 +1,6 @@
 # CSC-519-DevOps-Project-Milestone I
 
-#### Team Details:
+## Team Details:
 
 | Team Member             | Unity ID      | 
 | ------------------------|:-------------:| 
