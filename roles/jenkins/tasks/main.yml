@@ -128,9 +128,6 @@
 - name: Install sshpass
   apt: name=sshpass state=installed
 
-- name: Create Credentials
-  shell: "cat {{ jenkins_home }}/{{jenkins_credential_data.xml_name}} | java -jar {{ jenkins_jar_location }} -s http://{{ jenkins_hostname }}:{{ jenkins_http_port }}  create-credentials-by-xml system::system::jenkins _"
-
 - name: Trigger Build Jobs
   shell: "java -jar {{ jenkins_jar_location }} -s http://{{ jenkins_hostname }}:{{ jenkins_http_port }}  build {item.name}"
   with_items: "{{jenkins_build_jobs}}"

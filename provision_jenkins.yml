@@ -1,21 +1,44 @@
 - name: Provision a Jenkins CI server with Checkbox.io and Itrust
   hosts: all
+
+  vars_prompt:
+  - name: git_username
+    prompt: Please enter your github username
+    private: no
+
+  - name: git_password
+    prompt: Please enter your github password
+    private: yes
+
   gather_facts: no
   pre_tasks:
     - name: Install Python for Ansible
       raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
       changed_when: False
+      become: yes
     - setup: # aka gather_facts
 
   vars:
-    __jenkins_repo_url: deb https://pkg.jenkins.io/debian binary/
-    __jenkins_repo_key_url: https://pkg.jenkins.io/debian/jenkins.io.key
-    __jenkins_pkg_url: https://pkg.jenkins.io/debian/binary
     jenkins_init_file: /etc/default/jenkins
     jenkins_http_port_param: HTTP_PORT
     jenkins_java_options_env_var: JAVA_ARGS
+    jenkins_hostname: "{{ansible_all_ipv4_addresses[0]}}"
+    jenkins_http_port: 8080
+    jenkins_jar_location: /opt/jenkins-cli.jar
+
+    jenkins_build_jobs:
+    - name: "Checkbox"
+      xml_name: "checkbox_template.xml"
+    - name: "Itrust"
+      xml_name: "itrust_template.xml"
 
   roles:
     - jenkins
     - vagrant
     - ansible
+
+  tasks:
+
+  - name: Trigger Build Jobs
+    shell: "java -jar {{ jenkins_jar_location }} -s http://{{ jenkins_hostname }}:{{ jenkins_http_port }}  build {item.name}"
+    with_items: "{{jenkins_build_jobs}}"
