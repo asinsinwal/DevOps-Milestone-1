@@ -69,7 +69,7 @@
     # 8. Call script
     - name: Maven package
       script: maven.sh
-      chdir: /vagrant
+        chdir: /vagrant
       become: yes
 
     # 9. Downloading Tomcat
