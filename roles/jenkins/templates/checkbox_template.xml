@@ -44,7 +44,7 @@ npm install</command>
           </logTexts>
           <EscalateStatus>false</EscalateStatus>
           <RunIfJobSuccessful>true</RunIfJobSuccessful>
-          <script>sudo cp -r ../workspace /home/ubuntu/check_vagrant/&#xd;
+          <script>sudo cp -r ../Checkbox /home/ubuntu/check_vagrant/&#xd;
 cd /home/ubuntu/check_vagrant/&#xd;
 ansible-playbook -i checkbox_inventory checkbox.yml -vvvv</script>
         </hudson.plugins.postbuildtask.TaskProperties>
