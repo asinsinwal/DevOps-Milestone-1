@@ -12,9 +12,9 @@
 
 
 ## Ansible Scripts:
-
-1. The ansible script for deploying Checkbox.io on Ubuntu 14.04 server is contained in the file [provision_checkbox.yml]()
-2. The ansible script for deploying iTrust is contained in the file [provision_iTrust.yml]()
+1. Driver script which installs Jenkins, creates and triggers build jobs for Checkbox.io and iTrust. [provision_jenkins.yml](https://github.ncsu.edu/onjoshi/DevOps_M1/blob/master/provision_jenkins.yml) 
+2. The ansible script for deploying Checkbox.io on Ubuntu 14.04 server is contained in the file [provision_checkbox.yml]()
+3. The ansible script for deploying iTrust is contained in the file [provision_iTrust.yml]()
 
 ## Screencast:
 
