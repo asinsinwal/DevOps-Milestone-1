@@ -21,7 +21,7 @@
 
   vars:
     git_repo: https://github.com/kulkarnisneha/checkbox.io.git
-    home_path: /vagrant/workspace
+    home_path: /vagrant/Checkbox
     shared_folder_path: /home/ubuntu/check_vagrant
     nginx_sites_path: /etc/nginx/sites-enabled/default
     nginx_config_path: /etc/nginx/nginx.conf
