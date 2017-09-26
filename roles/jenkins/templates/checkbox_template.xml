@@ -45,7 +45,8 @@ npm install</command>
           <EscalateStatus>false</EscalateStatus>
           <RunIfJobSuccessful>true</RunIfJobSuccessful>
           <script>sudo cp -r ../workspace /home/ubuntu/check_vagrant/&#xd;
-ansible -i /home/ubuntu/check_vagrant/inventory -m ping all -vvvv</script>
+cd /home/ubuntu/check_vagrant/&#xd;
+ansible-playbook -i checkbox_inventory checkbox.yml -vvvv</script>
         </hudson.plugins.postbuildtask.TaskProperties>
       </tasks>
     </hudson.plugins.postbuildtask.PostbuildTask>
