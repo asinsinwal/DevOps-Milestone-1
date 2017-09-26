@@ -51,7 +51,7 @@
           <RunIfJobSuccessful>false</RunIfJobSuccessful>
           <script>sudo cp -r ../Itrust/ /home/ubuntu/itrust_vagrant/&#xd;
 cd /home/ubuntu/itrust_vagrant/&#xd;
-ansible-playbook -i itrust_inventory main.yml -vvv</script>
+ansible-playbook -i itrust_inventory main.yml -s -vvv</script>
         </hudson.plugins.postbuildtask.TaskProperties>
       </tasks>
     </hudson.plugins.postbuildtask.PostbuildTask>
