@@ -100,7 +100,7 @@
     - name: create a unit file to manage the MongoDB service.
       become: true
       template:
-        src: /home/ubuntu/checkbox_vagrant/mongodb_service.cnf
+        src: "{{shared_folder_path}}/mongodb_service.cnf"
         dest: /etc/systemd/system/mongodb.service
         mode: 0755
 
