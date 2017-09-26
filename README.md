@@ -43,10 +43,13 @@ iTrust requires credentials to even clone the repository. We had to handle this 
 
 ## Contribution:
 
-1. Ansible scripts for Checkbox.io deployment : Sneha Kulkarni
-2. Ansible scripts for iTrust depployment: Animesh Sinsinwal
-3. Jenkins automation upto post-build action: Omkar Joshi
-4. Jenkins automation post-build action onwards, setting up a VM inside a VM: Rahul Daga
+
+| Team Member                                                                        | Performed By           | 
+| -----------------------------------------------------------------------------------|:----------------------:| 
+| 1. Ansible scripts for Checkbox.io deployment                                      | Sneha Kulkarni         | 
+| 2. Ansible scripts for iTrust deployment                                           | Animesh Sinsinwal      |  
+| 3. Jenkins automation upto post-build action                                       | Omkar Joshi            |   
+| 4. Jenkins automation post-build action onwards, setting up a VM inside a VM       | Rahul Daga             |
 
 
 
