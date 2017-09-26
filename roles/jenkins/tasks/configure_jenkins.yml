@@ -7,7 +7,7 @@
     line: '{{ item.option }}="${{ item.option }} {{ item.value }}"'
     state: present
   with_items:
-      "{{ jenkins_init_changes }}"
+      "{{ jenkins_initialization_options }}"
   register: jenkins_init_prefix
 
 - name: Set the Jenkins home directory
@@ -36,17 +36,6 @@
     owner: jenkins
     group: jenkins
     mode: u+rwx
-
-- name: Create custom init scripts directory.
-  file:
-    path: "{{ jenkins_home }}/init.groovy.d"
-    state: directory
-    owner: "{{ jenkins_process_user }}"
-    group: "{{ jenkins_process_group }}"
-    mode: 0775
-
-- name: Trigger handlers immediately in case Jenkins was installed
-  meta: flush_handlers
 
 - name: Immediately restart Jenkins on http or user changes.
   service: name=jenkins state=restarted
