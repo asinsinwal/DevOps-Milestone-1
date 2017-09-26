@@ -17,3 +17,5 @@
 
   roles:
     - jenkins
+    - vagrant
+    - ansible
