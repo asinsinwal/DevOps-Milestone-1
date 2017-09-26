@@ -65,6 +65,6 @@
 - name: Copy itrust inventory file
   template:
     src: templates/itrust_inventory.j2
-    dest: /home/{{ansible_user}}/itrust_inventory/itrust_inventory
+    dest: /home/{{ansible_user}}/itrust_inventory
     owner: "{{ansible_user}}"
     mode: "u=rw,g=r,o=r"
