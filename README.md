@@ -1,3 +1,10 @@
-# DevOps_M1
+# CSC-519-DevOps-Project-Milestone I
 
-Do not forget to set GIT_USERNAME and GIT_PASSWORD environment variables in the ansible environment.
+#### Team Details:
+
+| Team Member             | Unity ID      | 
+| ------------------------|:-------------:| 
+| Rahul Daga              | rndaga        | 
+| Omkar Joshi             | onjoshi       |  
+| Animesh Sinsinwal       | assinsin      |   
+| Sneha Kulkarni          | skkulkar      |
