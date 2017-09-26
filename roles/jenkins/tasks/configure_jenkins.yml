@@ -8,7 +8,7 @@
     state: present
   with_items:
       "{{ jenkins_initialization_options }}"
-  register: jenkins_init_prefix
+  register: jenkins_init_changes
 
 - name: Set the Jenkins home directory
   lineinfile:
@@ -17,11 +17,11 @@
     line: 'JENKINS_HOME={{ jenkins_home }}'
   register: jenkins_home_config
 
-- name: Immediately restart Jenkins on init config changes.
+- name: Restart Jenkins
   service: name=jenkins state=restarted
-  when: jenkins_init_prefix.changed
+  when: jenkins_init_changes.changed
 
-- name: Set HTTP port in Jenkins config.
+- name: Set HTTP port.
   lineinfile:
     backrefs: yes
     dest: "{{ jenkins_init_file }}"
@@ -29,7 +29,7 @@
     line: '{{ jenkins_http_port_param }}={{ jenkins_http_port }}'
   register: jenkins_http_config
 
-- name: Ensure jenkins_home {{ jenkins_home }} exists
+- name: Ensure jenkins_home exists
   file:
     path: "{{ jenkins_home }}"
     state: directory
@@ -37,7 +37,7 @@
     group: jenkins
     mode: u+rwx
 
-- name: Immediately restart Jenkins on http or user changes.
+- name: Restart Jenkins.
   service: name=jenkins state=restarted
   when: (jenkins_users_config is defined and jenkins_users_config.changed) or
         (jenkins_http_config is defined and jenkins_http_config.changed) or
