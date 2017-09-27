@@ -18,7 +18,7 @@
 
 ## Screencast:
 
-Here is a link to our [screencast]()
+Here is a link to our [screencast](https://drive.google.com/open?id=0BwJDGHBPdFhQejFzYXhpTHRDbUk)
 
 
 ## Experiences and issues faced while setting up the system:
